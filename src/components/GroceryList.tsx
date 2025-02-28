@@ -158,9 +158,12 @@ export default function GroceryList() {
             />
             <span
               onClick={() => deleteItem(item.id)}
-              className="text-black cursor-pointer hover:text-blue-600 flex-1"
+              className="text-black cursor-pointer hover:text-blue-600 flex-1 flex justify-between items-center"
             >
               {item.name}
+              <span className="text-xs text-gray-500">
+                {new Date(item.created_at!).toLocaleString()}
+              </span>
             </span>
           </li>
         ))}
