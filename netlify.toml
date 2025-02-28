@@ -3,10 +3,8 @@
   publish = "out"
 
 [build.environment]
-  NEXT_PUBLIC_SUPABASE_URL=https://lpksomuvufagtdkdweyv.supabase.co
-  NEXT_PUBLIC_SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxwa3NvbXV2dWZhZ3Rka2R3ZXl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0Nzc4MjUsImV4cCI6MjA1MjA1MzgyNX0.Zqk-T9xaKgKWxumoxj9TTDL1uK3BuiednoqDIrEdqsE"
-  
-
+  NEXT_PUBLIC_SUPABASE_URL = "https://lpksomuvufagtdkdweyv.supabase.co"
+  NEXT_PUBLIC_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxwa3NvbXV2dWZhZ3Rka2R3ZXl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY0Nzc4MjUsImV4cCI6MjA1MjA1MzgyNX0.Zqk-T9xaKgKWxumoxj9TTDL1uK3BuiednoqDIrEdqsE"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
