@@ -16,7 +16,7 @@ export default async function Home() {
           {user?.firstName} Family HouseHold List
         </h1>
         <div className="text-center text-gray-800">
-          Please insert items needed for the next 2 weeks
+          Please insert items needed for the household
         </div>
         <GroceryList />
       </div>
