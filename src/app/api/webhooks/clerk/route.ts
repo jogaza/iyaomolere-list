@@ -43,7 +43,7 @@ async function handler(request: Request) {
   const eventType = evt.type;
 
   if (eventType === "user.created") {
-    const { id, first_name, last_name, created_at } = evt.data;
+    const { id, first_name, last_name } = evt.data;
 
     try {
       const { error } = await supabase.from("household_user").insert({
