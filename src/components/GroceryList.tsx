@@ -42,22 +42,15 @@ export default function GroceryList() {
     }
   }
 
-  const checkDuplicate = (
-    newItemText: string,
-    existingItems: GroceryItem[]
-  ) => {
+  const checkDuplicate = (newItemText: string, existingItems: GroceryItem[]) => {
     const trimmedNew = newItemText.trim().toLowerCase();
 
     const duplicate = existingItems.find((item) => {
       const existingName = item.name.toLowerCase();
-      return (
-        existingName.includes(trimmedNew) || trimmedNew.includes(existingName)
-      );
+      return existingName.includes(trimmedNew) || trimmedNew.includes(existingName);
     });
 
-    return duplicate
-      ? `Similar item "${duplicate.name}" already exists!`
-      : null;
+    return duplicate ? `Similar item "${duplicate.name}" already exists!` : null;
   };
 
   const addItem = async (e: React.FormEvent) => {
@@ -102,10 +95,7 @@ export default function GroceryList() {
   const deleteItem = async (id: number) => {
     try {
       // Delete from Supabase
-      const { error } = await supabase
-        .from("grocery_items")
-        .delete()
-        .eq("id", id);
+      const { error } = await supabase.from("grocery_items").delete().eq("id", id);
 
       if (error) throw error;
 
@@ -117,11 +107,7 @@ export default function GroceryList() {
   };
 
   if (loading) {
-    return (
-      <div className="max-w-md mx-auto p-4 text-center">
-        Loading grocery list...
-      </div>
-    );
+    return <div className="max-w-md mx-auto p-4 text-center">Loading grocery list...</div>;
   }
 
   return (
@@ -170,9 +156,7 @@ export default function GroceryList() {
       </ul>
 
       {items.length === 0 && (
-        <p className="text-center text-black mt-4">
-          Your grocery list is empty. Add some items!
-        </p>
+        <p className="text-center text-black mt-4">Your grocery list is empty. Add some items!</p>
       )}
     </div>
   );
