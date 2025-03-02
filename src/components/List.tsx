@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
+import { fetchGroceryItems } from "@/app/api/servercalls";
 
 interface GroceryItem {
   id: number;
@@ -22,23 +23,14 @@ export default function List({ userId }: ListProps) {
 
   // Fetch items on component mount
   useEffect(() => {
-    fetchGroceryItems();
+    loadItems();
   }, [userId]);
 
-  async function fetchGroceryItems() {
+  async function loadItems() {
     try {
-      const { data, error } = await supabase
-        .from("household_user")
-        .select("id, first_name, last_name, grocery_items(id, name, completed, created_at)")
-        .eq("clerk_id", userId)
-        .order("created_at", { ascending: false });
-
-      if (error) {
-        throw error;
-      }
-
-      if (data && data[0]?.grocery_items) {
-        setItems(data[0].grocery_items);
+      const groceryItems = await fetchGroceryItems(userId);
+      if (groceryItems) {
+        setItems(groceryItems);
       }
     } catch (error) {
       console.error("Error fetching grocery items:", error);

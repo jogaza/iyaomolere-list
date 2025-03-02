@@ -1,6 +1,7 @@
 import List from "@/components/List";
 import UrlDisplay from "@/components/UrlDisplay";
 import { currentUser } from "@clerk/nextjs/server";
+import { getUserFullName } from "../api/servercalls";
 
 interface PageProps {
   params: Promise<{
@@ -11,6 +12,7 @@ interface PageProps {
 export default async function Page({ params }: PageProps) {
   const user = await currentUser();
   const { uuid } = await params;
+  const userFullName = await getUserFullName(uuid);
 
   return (
     <main className="min-h-screen bg-gray-50 py-8">
@@ -20,13 +22,20 @@ export default async function Page({ params }: PageProps) {
             Hello {user?.fullName}
           </h1>
         )}
-        <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">{user?.fullName} List</h1>
-        <div className="text-center text-gray-800">Please insert items into the list</div>
-
-        <List userId={uuid} />
-        <h1 className="text-1xl font-bold text-center mb-2 text-gray-800">
-          <UrlDisplay userId={uuid} />
-        </h1>
+        {userFullName ? (
+          <>
+            <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">
+              {userFullName} List
+            </h1>
+            <List userId={uuid} />
+            <h1 className="text-1xl font-bold text-center mb-2 text-gray-800">
+              <UrlDisplay userId={uuid} />
+            </h1>
+            <div className="text-center text-gray-800">Please insert items into the list</div>
+          </>
+        ) : (
+          <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">Invalid List Link</h1>
+        )}
       </div>
     </main>
   );
