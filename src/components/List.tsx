@@ -10,7 +10,7 @@ interface GroceryItem {
   created_at?: string;
 }
 
-export default function GroceryList() {
+export default function List() {
   const [items, setItems] = useState<GroceryItem[]>([]);
   const [newItem, setNewItem] = useState("");
   const [loading, setLoading] = useState(true);
@@ -107,7 +107,7 @@ export default function GroceryList() {
   };
 
   if (loading) {
-    return <div className="max-w-md mx-auto p-4 text-center">Loading grocery list...</div>;
+    return <div className="max-w-md mx-auto p-4 text-center">Loading list...</div>;
   }
 
   return (
@@ -118,7 +118,7 @@ export default function GroceryList() {
             type="text"
             value={newItem}
             onChange={(e) => setNewItem(e.target.value)}
-            placeholder="Add a grocery item..."
+            placeholder="Add an item..."
             className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black placeholder-black"
           />
           <button
@@ -156,7 +156,7 @@ export default function GroceryList() {
       </ul>
 
       {items.length === 0 && (
-        <p className="text-center text-black mt-4">Your grocery list is empty. Add some items!</p>
+        <p className="text-center text-black mt-4">This list is empty. Add some items!</p>
       )}
     </div>
   );
