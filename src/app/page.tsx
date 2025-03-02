@@ -1,4 +1,5 @@
 import List from "@/components/List";
+import UrlDisplay from "@/components/UrlDisplay";
 import { currentUser } from "@clerk/nextjs/server";
 
 export default async function Home() {
@@ -16,9 +17,9 @@ export default async function Home() {
 
         {user && (
           <>
-            <List userId={user.id} />{" "}
+            <List userId={user.id} />
             <h1 className="text-2xl font-bold text-center mb-2 text-gray-800">
-              User ID: {user.id}
+              <UrlDisplay userId={user.id} />
             </h1>
           </>
         )}
