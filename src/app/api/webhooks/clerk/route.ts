@@ -3,7 +3,7 @@ import { WebhookEvent } from "@clerk/nextjs/server";
 import { Webhook } from "svix";
 import { supabase } from "@/lib/supabase";
 
-const webhookSecret = process.env.WEBHOOK_SECRET;
+const webhookSecret = process.env.CLERK_WEBHOOK_SECRET;
 
 async function handler(request: Request) {
   const payload = await request.json();
