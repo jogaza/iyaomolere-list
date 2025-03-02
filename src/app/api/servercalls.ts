@@ -4,7 +4,7 @@ import { supabase } from "@/lib/supabase";
 export async function getUserFullName(uuid: string): Promise<string | null> {
   try {
     // Assuming you have a profiles table with user information
-    const { data, error } = await supabase
+    const { data } = await supabase
       .from("household_user")
       .select("id, first_name, last_name, grocery_items(id, name, completed, created_at)")
       .eq("clerk_id", uuid)
