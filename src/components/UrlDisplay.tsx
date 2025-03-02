@@ -15,8 +15,8 @@ export default function UrlDisplay({ userId }: ListProps) {
 
   useEffect(() => {
     // Set the URL only on the client side
-    const baseUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin;
-    setFullUrl(`${baseUrl}/${userId}`);
+    const baseUrl = process.env.APP_LIST_URL || window.location.origin;
+    setFullUrl(`${baseUrl}${userId}`);
   }, [userId]);
 
   const copyToClipboard = async () => {
@@ -64,7 +64,7 @@ export default function UrlDisplay({ userId }: ListProps) {
           aria-label="Copy to clipboard"
         >
           {copied ? <FiCheck className="w-4 h-4" /> : <FiCopy className="w-4 h-4" />}
-          <span>{copied ? "Copied!" : "Copy"}</span>
+          <span>{copied ? "Copied!" : "Copy Link"}</span>
         </button>
 
         <div className="relative">
@@ -74,7 +74,7 @@ export default function UrlDisplay({ userId }: ListProps) {
             aria-label="Share options"
           >
             <FiShare2 className="w-4 h-4" />
-            <span>Share</span>
+            <span>Share Link</span>
           </button>
 
           {showShareOptions && (
