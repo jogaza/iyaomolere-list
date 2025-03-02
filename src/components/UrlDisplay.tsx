@@ -16,7 +16,7 @@ export default function UrlDisplay({ userId }: ListProps) {
   useEffect(() => {
     // Set the URL only on the client side
     const baseUrl = process.env.APP_LIST_URL || window.location.origin;
-    setFullUrl(`${baseUrl}${userId}`);
+    setFullUrl(`${baseUrl}/${userId}`);
   }, [userId]);
 
   const copyToClipboard = async () => {
@@ -52,11 +52,6 @@ export default function UrlDisplay({ userId }: ListProps) {
 
   return (
     <div className="text-center mt-6 mb-4">
-      <div className="flex items-center justify-center gap-2 mb-2">
-        <span className="text-sm text-gray-500">Share this list: </span>
-        <span className="text-sm font-medium text-gray-700">{fullUrl}</span>
-      </div>
-
       <div className="flex justify-center gap-2 mt-2">
         <button
           onClick={copyToClipboard}

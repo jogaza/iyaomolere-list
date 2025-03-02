@@ -24,7 +24,9 @@ export default async function Page({ params }: PageProps) {
         <div className="text-center text-gray-800">Please insert items into the list</div>
 
         <List userId={uuid} />
-        <UrlDisplay userId={uuid} />
+        <h1 className="text-1xl font-bold text-center mb-2 text-gray-800">
+          <UrlDisplay userId={uuid} />
+        </h1>
       </div>
     </main>
   );

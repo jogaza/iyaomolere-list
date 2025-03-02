@@ -18,7 +18,7 @@ export default async function Home() {
         {user && (
           <>
             <List userId={user.id} />
-            <h1 className="text-2xl font-bold text-center mb-2 text-gray-800">
+            <h1 className="text-1xl font-bold text-center mb-2 text-gray-800">
               <UrlDisplay userId={user.id} />
             </h1>
           </>
