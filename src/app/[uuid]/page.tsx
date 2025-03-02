@@ -1,7 +1,13 @@
 import List from "@/components/List";
 import { currentUser } from "@clerk/nextjs/server";
 
-export default async function Home() {
+interface PageProps {
+  params: {
+    uuid: string;
+  };
+}
+
+export default async function Page({ params }: PageProps) {
   const user = await currentUser();
   return (
     <main className="min-h-screen bg-gray-50 py-8">
@@ -13,15 +19,7 @@ export default async function Home() {
         )}
         <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">{user?.fullName} List</h1>
         <div className="text-center text-gray-800">Please insert items into the list</div>
-
-        {user && (
-          <>
-            <List userId={user.id} />{" "}
-            <h1 className="text-2xl font-bold text-center mb-2 text-gray-800">
-              User ID: {user.id}
-            </h1>
-          </>
-        )}
+        <List userId={params.uuid} />
       </div>
     </main>
   );

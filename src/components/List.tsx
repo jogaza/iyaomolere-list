@@ -10,7 +10,11 @@ interface GroceryItem {
   created_at?: string;
 }
 
-export default function List() {
+interface ListProps {
+  userId: string;
+}
+
+export default function List({ userId }: ListProps) {
   const [items, setItems] = useState<GroceryItem[]>([]);
   const [newItem, setNewItem] = useState("");
   const [loading, setLoading] = useState(true);
@@ -19,21 +23,22 @@ export default function List() {
   // Fetch items on component mount
   useEffect(() => {
     fetchGroceryItems();
-  }, []);
+  }, [userId]);
 
   async function fetchGroceryItems() {
     try {
       const { data, error } = await supabase
-        .from("grocery_items")
-        .select("*")
+        .from("household_user")
+        .select("id, first_name, last_name, grocery_items(id, name, completed, created_at)")
+        .eq("clerk_id", userId)
         .order("created_at", { ascending: false });
 
       if (error) {
         throw error;
       }
 
-      if (data) {
-        setItems(data);
+      if (data && data[0]?.grocery_items) {
+        setItems(data[0].grocery_items);
       }
     } catch (error) {
       console.error("Error fetching grocery items:", error);
@@ -68,6 +73,7 @@ export default function List() {
         }
 
         const newGroceryItem = {
+          owner_id: userId,
           name: trimmedItem,
           completed: false,
         };
