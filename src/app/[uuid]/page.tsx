@@ -3,13 +3,15 @@ import UrlDisplay from "@/components/UrlDisplay";
 import { currentUser } from "@clerk/nextjs/server";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     uuid: string;
-  };
+  }>;
 }
 
 export default async function Page({ params }: PageProps) {
   const user = await currentUser();
+  const { uuid } = await params;
+
   return (
     <main className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4">
@@ -21,8 +23,8 @@ export default async function Page({ params }: PageProps) {
         <h1 className="text-3xl font-bold text-center mb-2 text-gray-800">{user?.fullName} List</h1>
         <div className="text-center text-gray-800">Please insert items into the list</div>
 
-        <List userId={params.uuid} />
-        <UrlDisplay userId={params.uuid} />
+        <List userId={uuid} />
+        <UrlDisplay userId={uuid} />
       </div>
     </main>
   );
