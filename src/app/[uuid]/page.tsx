@@ -4,6 +4,7 @@ import { getUserFullName } from "../api/servercalls";
 import Link from "next/link";
 import List from "@/components/curated-list";
 import Authenticate from "@/components/authenticate";
+import Accordion from "@/components/accordion";
 
 interface PageProps {
   params: Promise<{
@@ -29,9 +30,9 @@ export default async function Page({ params }: PageProps) {
         </h1>
         {userFullName ? (
           <>
-            <div className="text-center text-gray-800">Please insert items into the list</div>
+            <div className="text-center text-gray-800 mb-6">Please insert items into the list</div>
             <List userId={uuid} />
-            <h1 className="text-1xl font-bold text-center mb-2 text-gray-800">
+            <h1 className="text-1xl font-bold text-center mb-2 mt-6 text-gray-800">
               <UrlDisplay userId={uuid} />
             </h1>
           </>
@@ -44,13 +45,40 @@ export default async function Page({ params }: PageProps) {
             {user ? (
               <div className="text-center text-gray-800">
                 We know you are a user.{" "}
-                <Link className=" text-blue-800" href="/">
-                  click here to go back to your own list
+                <Link
+                  className="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                  href="/"
+                >
+                  Go back to your list
                 </Link>
               </div>
             ) : (
               <Authenticate />
             )}
+          </>
+        )}
+        {user && user.id !== uuid && (
+          <>
+            <div className="text-center text-gray-800">We know this is not your list.</div>
+            <div className="text-center text-gray-800 mt-2">
+              <Link
+                className="inline-block px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                href="/"
+              >
+                Go back to your list
+              </Link>
+            </div>
+          </>
+        )}
+
+        {!user && (
+          <>
+            <Accordion title="Create your own list?" defaultOpen={false}>
+              <div className="text-center text-gray-500 py-4">
+                You can click on one of the buttons below to have your own unique list
+              </div>
+              <Authenticate />
+            </Accordion>
           </>
         )}
       </div>
