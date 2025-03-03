@@ -1,5 +1,5 @@
 import Authenticate from "@/components/authenticate";
-import List from "@/components/list";
+import List from "@/components/curated-list";
 import UrlDisplay from "@/components/url-display";
 import { currentUser } from "@clerk/nextjs/server";
 

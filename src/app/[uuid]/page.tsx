@@ -2,7 +2,7 @@ import UrlDisplay from "@/components/url-display";
 import { currentUser } from "@clerk/nextjs/server";
 import { getUserFullName } from "../api/servercalls";
 import Link from "next/link";
-import List from "@/components/list";
+import List from "@/components/curated-list";
 import Authenticate from "@/components/authenticate";
 
 interface PageProps {
