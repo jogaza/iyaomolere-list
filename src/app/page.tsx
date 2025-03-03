@@ -1,5 +1,6 @@
-import List from "@/components/List";
-import UrlDisplay from "@/components/UrlDisplay";
+import Authenticate from "@/components/authenticate";
+import List from "@/components/list";
+import UrlDisplay from "@/components/url-display";
 import { currentUser } from "@clerk/nextjs/server";
 
 export default async function Home() {
@@ -26,9 +27,12 @@ export default async function Home() {
             </h1>
           </>
         ) : (
-          <div className="text-center text-gray-800">
-            Please sign in or sign up to create a list
-          </div>
+          <>
+            <div className="text-center text-gray-800">
+              Please sign in or sign up to create a list
+            </div>
+            <Authenticate />
+          </>
         )}
       </div>
     </main>

@@ -1,9 +1,9 @@
-import List from "@/components/List";
-import UrlDisplay from "@/components/UrlDisplay";
+import UrlDisplay from "@/components/url-display";
 import { currentUser } from "@clerk/nextjs/server";
 import { getUserFullName } from "../api/servercalls";
 import Link from "next/link";
-import { SignUpButton } from "@clerk/nextjs";
+import List from "@/components/list";
+import Authenticate from "@/components/authenticate";
 
 interface PageProps {
   params: Promise<{
@@ -50,25 +50,7 @@ export default async function Page({ params }: PageProps) {
                 </Link>
               </div>
             ) : (
-              <div className="flex flex-col gap-2 justify-center">
-                <div className="flex justify-center items-center">
-                  <Link className=" text-blue-800" href="/sign-in">
-                    Click here to Sign in
-                  </Link>
-                </div>
-                <div className="flex justify-center items-center">
-                  <Link className=" text-blue-800" href="/sign-up">
-                    Click here to sign up
-                  </Link>
-                </div>
-                {/* <div className="mt-4 flex justify-center">
-                  <SignUpButton mode="modal" redirectUrl={`/sign-up`}>
-                    <button className="w-full md:w-auto border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 font-medium py-2 px-6 rounded">
-                      Create an Account
-                    </button>
-                  </SignUpButton>
-                </div> */}
-              </div>
+              <Authenticate />
             )}
           </>
         )}
