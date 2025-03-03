@@ -110,6 +110,9 @@ export default function List({ userId }: ListProps) {
 
   return (
     <div className="max-w-md mx-auto p-4">
+      <h3 className="flex text-gray-500 text-1x font-semibold mb-1 items-center justify-center">
+        Total Items: {items.length}
+      </h3>
       <form onSubmit={addItem} className="flex flex-col gap-2 mb-2">
         <div className="flex gap-2">
           <input
@@ -128,10 +131,6 @@ export default function List({ userId }: ListProps) {
         </div>
         {error && <p className="text-red-500 text-sm">{error}</p>}
       </form>
-
-      <h3 className="flex text-gray-500 text-1x font-semibold mb-1 items-center justify-center">
-        Total Items: {items.length}
-      </h3>
 
       <ul className="space-y-2">
         {items.map((item) => (
