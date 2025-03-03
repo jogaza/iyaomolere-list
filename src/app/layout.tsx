@@ -21,8 +21,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Household List",
-  description: "List of items",
+  title: "Curated List",
+  description: "Curated List of items",
 };
 
 export default function RootLayout({

@@ -5,8 +5,8 @@ export async function getUserFullName(uuid: string): Promise<string | null> {
   try {
     // Assuming you have a profiles table with user information
     const { data } = await supabase
-      .from("household_user")
-      .select("id, first_name, last_name, grocery_items(id, name, completed, created_at)")
+      .from("curated_list_users")
+      .select("id, first_name, last_name, curated_list_items(id, name, completed, created_at)")
       .eq("clerk_id", uuid)
       .order("created_at", { ascending: false });
 
@@ -22,11 +22,11 @@ export async function getUserFullName(uuid: string): Promise<string | null> {
   }
 }
 
-export async function fetchGroceryItems(userId: string) {
+export async function fetchListItems(userId: string) {
   try {
     const { data, error } = await supabase
-      .from("household_user")
-      .select("id, first_name, last_name, grocery_items(id, name, completed, created_at)")
+      .from("curated_list_users")
+      .select("id, first_name, last_name, curated_list_items(id, name, completed, created_at)")
       .eq("clerk_id", userId)
       .order("created_at", { ascending: false });
 
@@ -34,10 +34,10 @@ export async function fetchGroceryItems(userId: string) {
       throw error;
     }
 
-    if (data && data[0]?.grocery_items) {
-      return data[0]?.grocery_items;
+    if (data && data[0]?.curated_list_items) {
+      return data[0]?.curated_list_items;
     }
   } catch (error) {
-    console.error("Error fetching grocery items:", error);
+    console.error("Error fetching list items:", error);
   }
 }

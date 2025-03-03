@@ -46,7 +46,7 @@ async function handler(request: Request) {
     const { id, first_name, last_name } = evt.data;
 
     try {
-      const { error } = await supabase.from("household_user").insert({
+      const { error } = await supabase.from("curated_list_users").insert({
         clerk_id: id,
         first_name: first_name || null,
         last_name: last_name || null,

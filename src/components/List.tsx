@@ -2,9 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
-import { fetchGroceryItems } from "@/app/api/servercalls";
+import { fetchListItems } from "@/app/api/servercalls";
 
-interface GroceryItem {
+interface ListItem {
   id: number;
   name: string;
   completed: boolean;
@@ -16,7 +16,7 @@ interface ListProps {
 }
 
 export default function List({ userId }: ListProps) {
-  const [items, setItems] = useState<GroceryItem[]>([]);
+  const [items, setItems] = useState<ListItem[]>([]);
   const [newItem, setNewItem] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>("");
@@ -28,9 +28,9 @@ export default function List({ userId }: ListProps) {
 
   async function loadItems() {
     try {
-      const groceryItems = await fetchGroceryItems(userId);
-      if (groceryItems) {
-        setItems(groceryItems);
+      const items = await fetchListItems(userId);
+      if (items) {
+        setItems(items);
       }
     } catch (error) {
       console.error("Error fetching grocery items:", error);
@@ -39,7 +39,7 @@ export default function List({ userId }: ListProps) {
     }
   }
 
-  const checkDuplicate = (newItemText: string, existingItems: GroceryItem[]) => {
+  const checkDuplicate = (newItemText: string, existingItems: ListItem[]) => {
     const trimmedNew = newItemText.trim().toLowerCase();
 
     const duplicate = existingItems.find((item) => {
@@ -64,15 +64,15 @@ export default function List({ userId }: ListProps) {
           return;
         }
 
-        const newGroceryItem = {
+        const newItem = {
           owner_id: userId,
           name: trimmedItem,
           completed: false,
         };
 
         const { data, error } = await supabase
-          .from("grocery_items")
-          .insert([newGroceryItem])
+          .from("curated_list_items")
+          .insert([newItem])
           .select()
           .single();
 
@@ -93,7 +93,7 @@ export default function List({ userId }: ListProps) {
   const deleteItem = async (id: number) => {
     try {
       // Delete from Supabase
-      const { error } = await supabase.from("grocery_items").delete().eq("id", id);
+      const { error } = await supabase.from("curated_list_items").delete().eq("id", id);
 
       if (error) throw error;
 
