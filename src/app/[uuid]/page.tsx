@@ -53,7 +53,14 @@ export default async function Page({ params }: PageProps) {
                 </Link>
               </div>
             ) : (
-              <Authenticate />
+              <div className="mt-4">
+                <Accordion title="Create your own list?" defaultOpen={false}>
+                  <div className="text-center text-gray-500 py-4">
+                    You can click on one of the buttons below to have your own unique list
+                  </div>
+                  <Authenticate />
+                </Accordion>
+              </div>
             )}
           </>
         )}
@@ -71,7 +78,7 @@ export default async function Page({ params }: PageProps) {
           </>
         )}
 
-        {!user && (
+        {/* {!user && (
           <>
             <Accordion title="Create your own list?" defaultOpen={false}>
               <div className="text-center text-gray-500 py-4">
@@ -80,7 +87,7 @@ export default async function Page({ params }: PageProps) {
               <Authenticate />
             </Accordion>
           </>
-        )}
+        )} */}
       </div>
     </main>
   );
