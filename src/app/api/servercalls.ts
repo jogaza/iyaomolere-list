@@ -15,7 +15,7 @@ export async function getUserFullName(uuid: string): Promise<string | null> {
       return null;
     }
     if (data[0].first_name && data[0].last_name) {
-      let fullName = `${data[0].first_name} ${data[0].last_name}`;
+      const fullName = `${data[0].first_name} ${data[0].last_name}`;
       return fullName;
     } else {
       return "Curated";
