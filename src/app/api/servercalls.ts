@@ -10,12 +10,16 @@ export async function getUserFullName(uuid: string): Promise<string | null> {
       .eq("clerk_id", uuid)
       .order("created_at", { ascending: false });
 
-    if (!data || !data[0]?.first_name || !data[0]?.last_name) {
+    if (!data || !data[0]) {
       // If no data or no first_name, return a default value
       return null;
     }
-
-    return `${data[0].first_name} ${data[0].last_name}`;
+    if (data[0].first_name && data[0].last_name) {
+      let fullName = `${data[0].first_name} ${data[0].last_name}`;
+      return fullName;
+    } else {
+      return "Curated";
+    }
   } catch (error) {
     console.error("Unexpected error fetching user:", error);
     return null;
