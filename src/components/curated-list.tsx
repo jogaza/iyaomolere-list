@@ -201,14 +201,6 @@ export default function List({ userId }: ListProps) {
                           <span className="text-xs text-muted-foreground">
                             {item.created_at ? new Date(item.created_at).toLocaleString() : ""}
                           </span>
-                          {/* <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => {}}
-                            className="opacity-0 group-hover:opacity-100 transition-opacity"
-                          >
-                            <Trash2 className="h-4 w-4 text-destructive" />
-                          </Button> */}
                         </div>
                       </div>
                     </CardContent>
@@ -219,8 +211,8 @@ export default function List({ userId }: ListProps) {
           </AnimatePresence>
         </div>
       </CardContent>
-      <CardFooter className="text-xs text-muted-foreground justify-center py-4 bg-secondary/20">
-        Check items or click the trash icon to remove them
+      <CardFooter className="text-xs text-muted-foreground justify-center my-2 py-4 bg-secondary/20">
+        Check items to remove them
       </CardFooter>
     </Card>
   );
