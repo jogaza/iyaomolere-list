@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { fetchListItems } from "@/app/api/servercalls";
 import { motion, AnimatePresence } from "framer-motion";
-import { PlusCircle, Trash2, CheckCircle, Loader2 } from "lucide-react";
+import { PlusCircle, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
