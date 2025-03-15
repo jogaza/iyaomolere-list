@@ -114,23 +114,23 @@ export default function List({ userId }: ListProps) {
   if (loading) {
     return (
       <div className="flex justify-center items-center h-40">
-        <Loader2 className="h-8 w-8 animate-spin text-blue-500" />
-        <span className="ml-2 text-gray-600">Loading your list...</span>
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <span className="ml-2 text-muted-foreground">Loading your list...</span>
       </div>
     );
   }
 
   return (
-    <Card className="max-w-md w-full mx-auto shadow-lg">
-      <CardHeader>
-        <CardTitle className="flex justify-between items-center text-lg pt-4">
-          <span>Items</span>
-          <span className="text-sm font-normal text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
+    <Card className="max-w-md w-full mx-auto shadow-lg border-accent">
+      <CardHeader className="bg-secondary/50">
+        <CardTitle className="flex justify-between items-center text-lg pt-2">
+          <span className="text-primary">Items</span>
+          <span className="text-sm font-normal bg-primary/10 text-primary px-2 py-1 rounded-full">
             {items.length} {items.length === 1 ? "item" : "items"}
           </span>
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 pt-4">
         <form onSubmit={addItem} className="space-y-2">
           <div className="flex gap-2">
             <Input
@@ -140,7 +140,11 @@ export default function List({ userId }: ListProps) {
               placeholder="Add an item..."
               className="flex-1"
             />
-            <Button type="submit" size="sm">
+            <Button
+              type="submit"
+              size="sm"
+              className="bg-secondary hover:bg-secondary/100 text-secondary-foreground"
+            >
               <PlusCircle className="h-4 w-4 mr-1" />
               Add
             </Button>
@@ -149,7 +153,7 @@ export default function List({ userId }: ListProps) {
             <motion.p
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-red-500 text-sm"
+              className="text-destructive text-sm"
             >
               {error}
             </motion.p>
@@ -162,7 +166,7 @@ export default function List({ userId }: ListProps) {
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="text-center py-8 text-gray-500"
+                className="text-center py-8 text-muted-foreground"
               >
                 Your list is empty. Start adding items!
               </motion.div>
@@ -188,13 +192,13 @@ export default function List({ userId }: ListProps) {
                           htmlFor={`item-${item.id}`}
                           className={cn(
                             "cursor-pointer flex-1",
-                            item.completed && "line-through text-gray-500"
+                            item.completed && "line-through text-muted-foreground"
                           )}
                         >
                           {item.name}
                         </label>
                         <div className="flex items-center mr-4">
-                          <span className="text-xs text-gray-400">
+                          <span className="text-xs text-muted-foreground">
                             {item.created_at ? new Date(item.created_at).toLocaleString() : ""}
                           </span>
                           {/* <Button
@@ -203,7 +207,7 @@ export default function List({ userId }: ListProps) {
                             onClick={() => {}}
                             className="opacity-0 group-hover:opacity-100 transition-opacity"
                           >
-                            <Trash2 className="h-4 w-4 text-red-500" />
+                            <Trash2 className="h-4 w-4 text-destructive" />
                           </Button> */}
                         </div>
                       </div>
@@ -215,7 +219,7 @@ export default function List({ userId }: ListProps) {
           </AnimatePresence>
         </div>
       </CardContent>
-      <CardFooter className="text-xs text-gray-500 justify-center py-4">
+      <CardFooter className="text-xs text-muted-foreground justify-center py-4 bg-secondary/20">
         Check items or click the trash icon to remove them
       </CardFooter>
     </Card>

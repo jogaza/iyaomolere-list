@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { FiCopy, FiCheck, FiShare2 } from "react-icons/fi";
 import { FaTwitter, FaFacebook, FaWhatsapp } from "react-icons/fa";
+import { cn } from "@/lib/utils";
 
 interface ListProps {
   userId: string;
@@ -55,7 +56,10 @@ export default function UrlDisplay({ userId }: ListProps) {
       <div className="flex justify-center gap-2 mt-2">
         <button
           onClick={copyToClipboard}
-          className="flex items-center gap-1 px-3 py-1.5 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-md transition-colors"
+          className={cn(
+            "flex items-center gap-1 px-3 py-1.5 rounded-md transition-colors",
+            "bg-info/20 hover:bg-info/30 text-info"
+          )}
           aria-label="Copy to clipboard"
         >
           {copied ? <FiCheck className="w-4 h-4" /> : <FiCopy className="w-4 h-4" />}
@@ -65,7 +69,10 @@ export default function UrlDisplay({ userId }: ListProps) {
         <div className="relative">
           <button
             onClick={() => setShowShareOptions(!showShareOptions)}
-            className="flex items-center gap-1 px-3 py-1.5 bg-green-100 hover:bg-green-200 text-green-700 rounded-md transition-colors"
+            className={cn(
+              "flex items-center gap-1 px-3 py-1.5 rounded-md transition-colors",
+              "bg-success/20 hover:bg-success/30 text-success"
+            )}
             aria-label="Share options"
           >
             <FiShare2 className="w-4 h-4" />
@@ -73,24 +80,24 @@ export default function UrlDisplay({ userId }: ListProps) {
           </button>
 
           {showShareOptions && (
-            <div className="absolute mt-2 p-2 bg-white shadow-lg rounded-md z-10 flex gap-2">
+            <div className="absolute mt-2 p-2 bg-card shadow-lg rounded-md z-10 flex gap-2 border border-border">
               <button
                 onClick={() => handleShare("twitter")}
-                className="p-2 text-blue-400 hover:bg-gray-100 rounded-full"
+                className="p-2 text-info hover:bg-secondary rounded-full"
                 aria-label="Share on Twitter"
               >
                 <FaTwitter className="w-5 h-5" />
               </button>
               <button
                 onClick={() => handleShare("facebook")}
-                className="p-2 text-blue-600 hover:bg-gray-100 rounded-full"
+                className="p-2 text-primary hover:bg-secondary rounded-full"
                 aria-label="Share on Facebook"
               >
                 <FaFacebook className="w-5 h-5" />
               </button>
               <button
                 onClick={() => handleShare("whatsapp")}
-                className="p-2 text-green-500 hover:bg-gray-100 rounded-full"
+                className="p-2 text-success hover:bg-secondary rounded-full"
                 aria-label="Share on WhatsApp"
               >
                 <FaWhatsapp className="w-5 h-5" />
