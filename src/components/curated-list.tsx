@@ -3,6 +3,13 @@
 import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 import { fetchListItems } from "@/app/api/servercalls";
+import { motion, AnimatePresence } from "framer-motion";
+import { PlusCircle, Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 
 interface ListItem {
   id: number;
@@ -105,60 +112,116 @@ export default function List({ userId }: ListProps) {
   };
 
   if (loading) {
-    return <div className="max-w-md mx-auto p-4 text-center">Loading list...</div>;
+    return (
+      <div className="flex justify-center items-center h-40">
+        <Loader2 className="h-8 w-8 animate-spin text-primary" />
+        <span className="ml-2 text-muted-foreground">Loading your list...</span>
+      </div>
+    );
   }
 
   return (
-    <div className="max-w-md mx-auto p-4">
-      <h3 className="flex text-gray-500 text-1x font-semibold mb-1 items-center justify-center">
-        Total Items: {items.length}
-      </h3>
-      <form onSubmit={addItem} className="flex flex-col gap-2 mb-2">
-        <div className="flex gap-2">
-          <input
-            type="text"
-            value={newItem}
-            onChange={(e) => setNewItem(e.target.value)}
-            placeholder="Add an item..."
-            className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-black placeholder-black"
-          />
-          <button
-            type="submit"
-            className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            Add
-          </button>
-        </div>
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-      </form>
-
-      <ul className="space-y-2">
-        {items.map((item) => (
-          <li
-            key={item.id}
-            className="flex items-center gap-2 p-2 border rounded-lg transition-all duration-300"
-          >
-            <input
-              type="checkbox"
-              onChange={() => deleteItem(item.id)}
-              className="w-5 h-5 text-blue-500 rounded focus:ring-blue-500"
+    <Card className="max-w-md w-full mx-auto shadow-lg border-accent">
+      <CardHeader className="bg-secondary/50">
+        <CardTitle className="flex justify-between items-center text-lg pt-2">
+          <span className="text-primary">Items</span>
+          <span className="text-sm font-normal bg-primary/10 text-primary px-2 py-1 rounded-full">
+            {items.length} {items.length === 1 ? "item" : "items"}
+          </span>
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-4 pt-4">
+        <form onSubmit={addItem} className="space-y-2">
+          <div className="flex gap-2">
+            <Input
+              type="text"
+              value={newItem}
+              onChange={(e) => setNewItem(e.target.value)}
+              placeholder="Add an item..."
+              className="flex-1"
             />
-            <span
-              onClick={() => deleteItem(item.id)}
-              className="text-black cursor-pointer hover:text-blue-600 flex-1 flex justify-between items-center"
+            <Button
+              type="submit"
+              size="sm"
+              className="bg-secondary hover:bg-secondary/100 text-secondary-foreground"
             >
-              {item.name}
-              <span className="text-xs text-gray-500">
-                {new Date(item.created_at!).toLocaleString()}
-              </span>
-            </span>
-          </li>
-        ))}
-      </ul>
+              <PlusCircle className="h-4 w-4 mr-1" />
+              Add
+            </Button>
+          </div>
+          {error && (
+            <motion.p
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-destructive text-sm"
+            >
+              {error}
+            </motion.p>
+          )}
+        </form>
 
-      {items.length === 0 && (
-        <p className="text-center text-black mt-4">This list is empty. Add some items!</p>
-      )}
-    </div>
+        <div className="space-y-2">
+          <AnimatePresence>
+            {items.length === 0 ? (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="text-center py-8 text-muted-foreground"
+              >
+                Your list is empty. Start adding items!
+              </motion.div>
+            ) : (
+              items.map((item) => (
+                <motion.div
+                  key={item.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  transition={{ duration: 0.2 }}
+                  className="group"
+                >
+                  <Card className="overflow-hidden">
+                    <CardContent className="p-1 flex items-center gap-3">
+                      <Checkbox
+                        id={`item-${item.id}`}
+                        checked={item.completed}
+                        onCheckedChange={() => deleteItem(item.id)}
+                      />
+                      <div className="flex-1 flex justify-between items-center">
+                        <label
+                          htmlFor={`item-${item.id}`}
+                          className={cn(
+                            "cursor-pointer flex-1",
+                            item.completed && "line-through text-muted-foreground"
+                          )}
+                        >
+                          {item.name}
+                        </label>
+                        <div className="flex items-center mr-4">
+                          <span className="text-xs text-muted-foreground">
+                            {item.created_at ? new Date(item.created_at).toLocaleString() : ""}
+                          </span>
+                          {/* <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => {}}
+                            className="opacity-0 group-hover:opacity-100 transition-opacity"
+                          >
+                            <Trash2 className="h-4 w-4 text-destructive" />
+                          </Button> */}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))
+            )}
+          </AnimatePresence>
+        </div>
+      </CardContent>
+      <CardFooter className="text-xs text-muted-foreground justify-center py-4 bg-secondary/20">
+        Check items or click the trash icon to remove them
+      </CardFooter>
+    </Card>
   );
 }
