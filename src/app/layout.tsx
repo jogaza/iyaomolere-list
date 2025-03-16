@@ -40,7 +40,7 @@ export default function RootLayout({
           <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
             <header className="border-b shadow-sm bg-background sticky top-0 z-10">
               <div className="max-w-6xl mx-auto flex justify-between items-center p-4 gap-4 h-16">
-                <div className="font-semibold text-xl">Curated</div>
+                <div className="font-semibold text-xl">Curated List</div>
                 <div className="flex items-center gap-2">
                   <ThemeToggle />
                   <SignedOut>

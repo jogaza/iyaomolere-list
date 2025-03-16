@@ -19,7 +19,7 @@ export default async function Home() {
 
         {user ? (
           <>
-            <div className="text-center text-muted-foreground">
+            <div className="text-center text-muted-foreground mb-2">
               Please insert items into the list
             </div>
 

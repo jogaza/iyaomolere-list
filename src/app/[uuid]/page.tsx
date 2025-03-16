@@ -32,7 +32,7 @@ export default async function Page({ params }: PageProps) {
         </h1>
         {userFullName ? (
           <>
-            <div className="text-center text-muted-foreground mb-6">
+            <div className="text-center text-muted-foreground mb-2">
               Please insert items into the list
             </div>
             <List userId={uuid} />
