@@ -189,9 +189,8 @@ export default function List({ userId }: ListProps) {
                       />
                       <div className="flex-1 flex justify-between items-center">
                         <label
-                          htmlFor={`item-${item.id}`}
                           className={cn(
-                            "cursor-pointer flex-1",
+                            "flex-1",
                             item.completed && "line-through text-muted-foreground"
                           )}
                         >
@@ -212,7 +211,7 @@ export default function List({ userId }: ListProps) {
         </div>
       </CardContent>
       <CardFooter className="text-xs text-muted-foreground justify-center my-2 py-4 bg-secondary/20">
-        Check items to remove them
+        Click the checkbox to remove items
       </CardFooter>
     </Card>
   );
