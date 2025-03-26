@@ -29,17 +29,17 @@ export async function getUserFullName(uuid: string): Promise<string | null> {
 export async function fetchListItems(userId: string) {
   try {
     const { data, error } = await supabase
-      .from("curated_list_users")
-      .select("id, first_name, last_name, curated_list_items(id, name, completed, created_at)")
-      .eq("clerk_id", userId)
+      .from("curated_list_items")
+      .select("*")
+      .eq("owner_id", userId)
       .order("created_at", { ascending: false });
 
     if (error) {
       throw error;
     }
 
-    if (data && data[0]?.curated_list_items) {
-      return data[0]?.curated_list_items;
+    if (data) {
+      return data;
     }
   } catch (error) {
     console.error("Error fetching list items:", error);
